@@ -1,46 +1,43 @@
-import axios from "axios";
-
 export default {
-    namespaced: false,
-    state() {
-        return {
-            user: [],
-        }
-    },
-    getters: {
-        user: state => {
-            return state.user;
-        },
-    },
-    actions: {
-        async loadUsers ({ commit }, studentNumber) {
-            try {
-                let res = await axios
-                    .get('https://floralearn.org/flora-lighthouse/api/result', {
-                        params: {
-                            studentNumber: studentNumber
-                        }
-                    })
-
-                console.log(res.data);
-                if(res.data['statusCode'] === 200){
-                    console.log("succeeded")
-                    commit('SET_USER', res.data);
-                }
-                else{
-                    console.log("Error "+res.data['statusCode'])
-                }
-
-                return res.data['statusCode']
-            }
-            catch(error) {
-                console.log("Error has occured");
-            }
-        }
-    },
-    mutations: {
-        SET_USER(state, user) {
-            state.user = user['body'];
-        },
+  namespaced: false,
+  state() {
+    return {
+      essays: [],
+      selectedEssays: []
     }
+  },
+  getters: {
+    essays: (state) => {
+      return state.essays
+    },
+    selectedEssays: (state) => {
+      return state.selectedEssays
+    }
+  },
+  actions: {
+    async loadTraceData({ commit }, input) {
+      const { username } = input
+      return new Promise((resolve, reject) => {
+        fetch(import.meta.env.VITE_API_URL + `/tracedata/${username}`)
+          .then(async response => {
+            if(response.ok){
+              const essays = await response.json();
+              commit('SET_ESSAYS', essays)
+              commit('SET_SELECTED_ESSAYS', essays)
+              resolve(response)
+            }else{
+              reject(response)
+            }
+          });
+      });
+    },
+  },
+  mutations: {
+    SET_ESSAYS(state, essays) {
+      state.essays = essays
+    },
+    SET_SELECTED_ESSAYS(state, selectedEssays) {
+      state.selectedEssays = selectedEssays
+    }
+  }
 }

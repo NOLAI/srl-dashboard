@@ -14,7 +14,7 @@ const routes =  [
 ]
 
 const router = createRouter({
-    history: createWebHistory("/dashboard/dist"),
+    history: createWebHistory("/dashboard"),
     routes: routes,
     linkActiveClass: 'active'
 })

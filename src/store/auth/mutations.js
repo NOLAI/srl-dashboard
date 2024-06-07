@@ -1,7 +1,7 @@
 import {
     SET_AUTHENTICATION,
     SET_LOADING,
-    SET_USERNAME
+    SET_USERNAME,
 } from "../storeconstants";
 
 export default {

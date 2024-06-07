@@ -5,15 +5,16 @@
   },
   "explanations": {
     "titel": "Hover for explanation",
-    "NietGedetecteerd": "No cognitive process has been detected. This does not mean you have done nothing. The action you performed could not be detected as a cognitive and/or metacognitive process.",
-    "Orientatie": "Orientation is exploring the learning environment and activating prior knowledge. Examples of orientation activities during essay writing are: scanning the content of the learning environment, determining the learning goals, and looking at the rubric.",
-    "Plannen": "Planning prepares you to execute the actual task. It is about planning time and planning activities, that enables you to reach your learning goals.",
-    "Monitoren": "Monitoring encompasses checking your learning process and controlling the execution of your planned strategies to pursue your learning goals. Am I still learning in the way I intended to learn? Examples of monitoring activities for writing the essay are: using annotations and notes, checking your planning, and checking the timer.",
-    "Evaluatie": "Evaluation activities are closely related to monitoring. In both, you are checking your learning process and behavior, but with evaluation, you add a judgement to these activities. At monitoring, you check whether your learning process is occurring in the way you planned. With evaluation activities, you rate if the things you do are still helpful to pursuing your learning goals and may lead to adjustments in your learning strategy if necessary. Examples of evaluation with writing an essay are: checking the general instruction and/or the rubric to evaluate the relevance of the information you were using or were planning to use in your essay.",
-    "Lezen": "Reading is part of cognitive processes and reflects when and how long you first read a text.",
-    "Herlezen": "The cognitive rereading process reflects when and how long you have read a text again.",
-    "Schrijven": "Writing shows when and how long you were writing.",
-    "Other": "BLANK: No information."
+    "NietGedetecteerd": "No cognitive process has been detected. This does not mean you have done nothing. The action you performed could not be detected as a cognitive or metacognitive process.",
+    "Orientatie": "Orientation is figuring out what the task is. This can be done using the general instruction, rubric, and menu.",
+    "Plannen": "Planning is making a schedule of the task. This can be done using the planner.",
+    "Monitoren": "Monitoring is checking your learning. This can be done using the general instruction, notes, the planner, and the timer.",
+    "Evaluatie": "Evaluation is checking the information in the text or essay. You can do this by comparing the information to the general instruction or rubric. Then you choose to continue with the same information or read or write something else.",
+    "Lezen": "Reading is reading a text for the first time.",
+    "Herlezen": "Rereading is reading a text again.",
+    "Schrijven": "Writing is the act of writing the essay.",
+    "Verwerking/Organisatie": "Note-taking is the taking or reading of notes.",
+    "Other": "No information"
   },
   "categories": {
     "cognition": "Cognition",
@@ -23,6 +24,7 @@
     "Lezen": "Reading",
     "Herlezen": "Rereading",
     "Schrijven": "Writing",
+    "Verwerking/Organisatie": "Note-taking",
     "Orientatie": "Orientation",
     "Plannen": "Planning",
     "Evaluatie": "Evaluation",
@@ -46,6 +48,7 @@
     "username": "Username",
     "loginButton": "Log in",
     "usernameEmptyError": "Username field cannot be empty",
+    "incorrectUsernameError": "User does not exist",
     "successMessage": "Authentication successful",
     "generalError": "Something went wrong. Please try again"
   },
@@ -53,12 +56,18 @@
     "logout": "Logout",
     "timelineTab": "Timeline",
     "resultsTab": "Results",
-    "dashboardTitle": "User {user} dashboard",
+    "dashboardTitle": "Dashboard of {user}",
     "dashboardSubtitle": "Overview of learning process",
-    "timelineTitle": "Timeline of user {user}",
+    "timelineTitle": "Timeline of {user}",
     "timelineSubtitle": "Total time: 45 minutes",
     "beforeMeasure": "Before measure",
     "afterMeasure": "After measure",
-    "learningProfit": "Learning profit"
+    "learningProfit": "Learning profit",
+    "selectEssays": "Select essay(s)",
+    "minute": "minute",
+    "minutes": "minutes",
+    "and": "and",
+    "second": "second",
+    "seconds": "seconds"
   }
 }

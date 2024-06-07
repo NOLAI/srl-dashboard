@@ -5,15 +5,16 @@
   },
   "explanations": {
     "title": "Hover over de tijdlijn voor uitleg",
-    "NietGedetecteerd": "Er is geen proces gedetecteerd. Dit betekent niet dat je niks hebt gedaan. Het gedrag kon enkel niet gedetecteerd worden als een cognitief en/of metacognitief proces.",
-    "Orientatie": "Orientatie is het verkennen van de leeromgeving en het activeren van voorkennis. Voorbeelden van oriënterende activiteiten bij het schrijven van een essay zijn: inhoud scannen van een leeromgeving, bepalen van leerdoelen en de rubriek bekijken.",
-    "Plannen": "Plannen heeft betrekking op activiteiten die jouw voorbereiding op het uitvoeren van de taak. Het gaat over het bepalen en plannen van activiteiten die nodig zijn om jouw leerdoel te behalen.",
-    "Monitoren": "Monitoren betreft het controleren van jouw leerproces en het controleren van jouw geplande leerstrategie. Ben ik nog steeds aan het leren op de manier, zoals ik van te voren bedacht heb? Voorbeelden van monitoringsactiviteiten zijn: annotaties en notities gebruiken, je planning controleren en de timer bekijken.",
-    "Evaluatie": "Evaluatie hangt nauw samen met monitoring. In beide toets je je leerproces en gedrag, maar bij evaluatie voeg je een oordeel toe aan de activiteiten die je toetst. Bij monitoring controleer je of je leerproces verloopt zoals je van te voren hebt bedacht. Met evaluatieactiviteiten beoordeel je of de dingen die je doen nog steeds nuttig zijn om je leerdoel te behalen. Dit oordeel kan leiden tot het aanpassen van je leerstrategie. Voorbeelden van evaluatie bij het schrijven van een essay zijn: het controleren van de instructie en/of de rubriek om de relevantie van de informatie voor het essay te beoordelen.",
-    "Lezen": "Lezen valt onder cognitieve processen en weergeeft wanneer en hoe lang jij een tekst voor het eerste hebt gelezen.",
-    "Herlezen": "Het cognitieve proces herlezen weergeeft wanneer en hoe lang jij een tekst nogmaals hebt gelezen.",
-    "Schrijven": "Schrijven toont wanneer en hoe lang jij aan het schrijven was. ",
-    "Other": "BLANK: Geen informatie."
+    "NietGedetecteerd": "Er is geen proces gedetecteerd. Dit betekent niet dat je niks hebt gedaan. Het gedrag kon enkel niet gedetecteerd worden als een cognitief of metacognitief proces.",
+    "Orientatie": "Oriëntatie is het uitzoeken van wat de taak is. Dit kan met behulp van de algemene instructie, rubric, en het menu.",
+    "Plannen": "Plannen is het maken van een planning van de taak. Dit kan met behulp van de planner.",
+    "Monitoren": "Monitoren is het controleren van jouw leerproces. Dit kan met behulp van de algemene instructie, notities, de planner, en de timer.",
+    "Evaluatie": "Evaluatie is het controleren van de informatie in de tekst of het essay. Dit kan door de informatie te vergelijken met de algemene instructie of de rubric. Vervolgens kies je om verder te gaan met dezelfde informatie of iets anders te lezen of schrijven.",
+    "Lezen": "Lezen is het lezen van een tekst voor de eerste keer.",
+    "Herlezen": "Herlezen is het opnieuw lezen van een tekst.",
+    "Schrijven": "Schrijven is het schrijven van het essay.",
+    "Verwerking/Organisatie": "Noteren is het maken of lezen van notities.",
+    "Other": "Geen informatie"
   },
   "categories": {
     "cognition": "Cognitie",
@@ -23,7 +24,8 @@
     "Lezen": "Lezen",
     "Herlezen": "Herlezen",
     "Schrijven": "Schrijven",
-    "Orientatie": "Orientatie",
+    "Verwerking/Organisatie": "Noteren",
+    "Orientatie": "Oriëntatie",
     "Plannen": "Plannen",
     "Evaluatie": "Evaluatie",
     "Monitoren": "Monitoren",
@@ -46,6 +48,7 @@
     "username": "Gebruikersnaam",
     "loginButton": "Inloggen",
     "usernameEmptyError": "Gebruikersnaam kan niet leeg zijn",
+    "incorrectUsernameError": "Gebruiker bestaat niet",
     "successMessage": "Authenticatie succesvol",
     "generalError": "Er is iets fout gegaan. Probeer het opnieuw"
   },
@@ -53,12 +56,18 @@
     "logout": "Uitloggen",
     "timelineTab": "Tijdlijn",
     "resultsTab": "Resultaten",
-    "dashboardTitle": "Dashboard van persoon {user}",
+    "dashboardTitle": "Dashboard van {user}",
     "dashboardSubtitle": "Overzicht van leerproces",
     "timelineTitle": "Tijdlijn van {user}",
     "timelineSubtitle": "Totale tijd: 45 minuten",
     "beforeMeasure": "Voor meting",
     "afterMeasure": "Na meting",
-    "learningProfit": "Leerwinst"
+    "learningProfit": "Leerwinst",
+    "selectEssays": "Betogen selecteren",
+    "minute": "minuut",
+    "minutes": "minuten",
+    "and": "en",
+    "second": "seconde",
+    "seconds": "seconden"
   }
 }

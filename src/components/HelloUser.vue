@@ -46,11 +46,16 @@ export default {
             return this.$store.getters[`auth/${GET_USERNAME}`]
         },
         logout() {
-            this.$store.commit(`auth/${SET_AUTHENTICATION}`, false);
-            this.$store.commit(`auth/${SET_USERNAME}`, "");
+            // this.$store.commit(`auth/${SET_AUTHENTICATION}`, false);
+            // this.$store.commit(`auth/${SET_USERNAME}`, "");
 
-            this.output = "Logged out"
-            this.$router.push('/login')
+            // this.output = "Logged out"
+            // this.$router.push('/login')
+
+            // Very temporary logout store fix:
+            // TODO: Implement proper logout
+            localStorage.clear();
+            window.location.reload();
         },
         isAuthenticated() {
             return this.$store.getters[`auth/${IS_USER_AUTHENTICATED}`]
