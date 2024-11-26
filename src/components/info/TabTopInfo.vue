@@ -1,30 +1,28 @@
 <template>
     <v-row no-gutters>
         <v-col>
-            <span class="tab-info-title">{{ $t("general.timelineTitle", { user: getUsername() }) }}</span>
+            <span class="tab-info-title" v-if="auth.authenticated">{{ $t("general.timelineTitle", {
+                user:
+                    auth.user.username }) }}</span>
             <br>
             <span class="tab-info-subtitle">{{ $t("general.timelineSubtitle") }}</span>
         </v-col>
         <v-col style="text-align: right;">
-            <v-btn icon="mdi-minus" @click="zoomOut" :disabled="zoom <= 100"></v-btn>
-            <span style="margin: 0 20px">Zoom: {{ zoom }}%</span>
-            <v-btn icon="mdi-plus" @click="zoomIn"></v-btn>
+            <v-btn icon="mdi-minus" @click="props.zoomOut" :disabled="props.zoom <= 100"></v-btn>
+            <span style="margin: 0 20px">Zoom: {{ props.zoom }}%</span>
+            <v-btn icon="mdi-plus" @click="props.zoomIn"></v-btn>
         </v-col>
     </v-row>
 </template>
 
-<script>
-import { GET_USERNAME } from "../../store/storeconstants";
+<script setup>
+import { auth } from '@/logic/auth';
 
-export default {
-    name: "TabTopInfo",
-    props: ['zoom', 'zoomIn', 'zoomOut'],
-    methods: {
-        getUsername() {
-            return this.$store.getters[`auth/${GET_USERNAME}`]
-        },
-    }
-}
+const props = defineProps({
+    zoom: Number,
+    zoomIn: Function,
+    zoomOut: Function,
+});
 </script>
 
 <style>

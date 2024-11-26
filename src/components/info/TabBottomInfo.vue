@@ -3,42 +3,31 @@
         <v-col cols="4" class="explainer-col px-8">
             <HoverInfo />
         </v-col>
-        <template v-if="getSelectedEssays().length == 1">
+        <template v-if="essays.selected.length == 1">
             <v-col cols="4" class="explainer-col px-8">
-                <FractionInfo :title="$t('categories.metacognition')" :m_perc="getSelectedEssays()[0].m_perc" />
+                <FractionInfo :title="$t('process.metacognition')" type="metacognition"
+                    :course_id="essays.selected[0].course_id" />
             </v-col>
             <v-col cols="4" class="explainer-col px-8">
-                <FractionInfo :title="$t('categories.cognition')" :c_perc="getSelectedEssays()[0].c_perc" />
+                <FractionInfo :title="$t('process.cognition')" type="cognition"
+                    :course_id="essays.selected[0].course_id" />
             </v-col>
         </template>
-        <template v-else-if="getSelectedEssays().length > 1">
-            <v-col :cols="Math.floor(8 / getSelectedEssays().length)" class="explainer-col px-8" v-for="essay in getSelectedEssays()">
-                <FractionInfo :title="$i18n.locale == 'nl' ? essay.name_nl : essay.name_en" :c_perc="essay.c_perc" :m_perc="essay.m_perc" />
+        <template v-else-if="essays.selected.length > 1">
+            <v-col :key="essay.course_id" :cols="Math.floor(8 / essays.selected.length)" class="explainer-col px-8"
+                v-for="essay in essays.selected">
+                <FractionInfo :title="$i18n.locale == 'nl' ? essay.name_nl : essay.name_en"
+                    :course_id="essay.course_id" />
             </v-col>
         </template>
     </v-row>
 </template>
 
-<script>
+<script setup>
 import HoverInfo from "./HoverInfo.vue";
 import FractionInfo from "./FractionInfo.vue";
-import { SET_AUTHENTICATION, SET_USERNAME } from "../../store/storeconstants";
+import { essays } from '@/logic/essay';
 
-export default {
-    name: "TabBottomInfo",
-    components: { FractionInfo, HoverInfo },
-    methods: {
-        logout() {
-            this.$store.commit(`auth/${SET_AUTHENTICATION}`, false);
-            this.$store.commit(`auth/${SET_USERNAME}`, "");
-            this.output = "Logged out"
-            this.$router.push('/login')
-        },
-        getSelectedEssays() {
-            return this.$store.getters.selectedEssays;
-        },
-    }
-}
 </script>
 
 <style>
@@ -51,7 +40,9 @@ export default {
 /*.explainer-heading span:not(:first-child){*/
 /*    margin-bottom: 10px;*/
 /*}*/
-.explainer-row {}
+.explainer-row {
+    min-height: 200px;
+}
 
 .v-divider {
     margin-top: 10px;
