@@ -2,12 +2,8 @@
     <v-row>
         <v-card flat color="transparent" min-width="100%">
             <EssaySelector />
-            <v-tabs
-                v-model="tab"
-            >
-                <v-tab
-                    value="timeline"
-                    @click="updateActiveTab('timeline')">
+            <v-tabs v-model="tab">
+                <v-tab value="timeline">
                     {{ $t("general.timelineTab") }}
                 </v-tab>
             </v-tabs>
@@ -23,31 +19,14 @@
     </v-row>
 </template>
 
-<script>
+<script setup>
 import TimelineTab from "./TimelineTab.vue";
 import EssaySelector from "./EssaySelector.vue";
-import {GET_ACTIVE_TAB, IS_USER_AUTHENTICATED, SET_ACTIVE_TAB} from "../store/storeconstants";
+import { ref } from "vue";
 
-export default {
-    name: 'MainView',
-    components: { TimelineTab, EssaySelector },
-    data: function (){
-        return{
-            tab: this.$store.getters[`selection/${GET_ACTIVE_TAB}`],
-        }
-    },
-    created() {
-        if (!this.$store.getters[`auth/${IS_USER_AUTHENTICATED}`]) {
-            this.$router.push('/login')
-        }
-    },
-    methods: {
-         updateActiveTab(value){
-            this.$store.commit(`selection/${SET_ACTIVE_TAB}`, value);
-        }
-    }
-}
+const tab = ref("timeline");
 </script>
+
 <style scoped>
 .v-btn {
     font-family: "Noto Sans";

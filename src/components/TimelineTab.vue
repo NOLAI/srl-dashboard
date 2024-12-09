@@ -1,21 +1,23 @@
 <template>
     <v-container fluid>
         <v-row id="tab-info">
-            <TabTopInfo :zoom="zoom" :zoomIn="zoomIn" :zoomOut="zoomOut" />
+            <TabTopInfo :zoom="zoom" :zoomIn="() => { zoom += 25 }" :zoomOut="() => { zoom -= 25 }" />
         </v-row>
         <v-row id="timelines">
-            <div v-if="getSelectedEssays().length == 1" class="timeline-wrapper">
-                <h3>{{ getSelectedEssays()[0].name }}</h3>
-                <div class="timeline-container">
-                    <TimelineChart :series="getSelectedEssays()[0].meta" class="timeline" :zoom="zoom" />
-                    <TimelineChart :series="getSelectedEssays()[0].cog" class="timeline" :zoom="zoom" />
+            <template v-if="essays.selected.length == 1">
+                <div class="timeline-wrapper" ref="timelines">
+                    <h3>{{ $i18n.locale == 'nl' ? essays.selected[0].name_nl : essays.selected[0].name_en }}</h3>
+                    <div class="timeline-container">
+                        <TimelineChart :course_id="essays.selected[0].course_id" :combined="false" class="timeline"
+                            :zoom="zoom" />
+                    </div>
                 </div>
-            </div>
-            <template v-else-if="getSelectedEssays().length > 1">
-                <div v-for="essay in getSelectedEssays()" class="timeline-wrapper">
+            </template>
+            <template v-else-if="essays.selected.length > 1">
+                <div :key="essay.course_id" v-for="essay in essays.selected" class="timeline-wrapper" ref="timelines">
                     <h3>{{ $i18n.locale == 'nl' ? essay.name_nl : essay.name_en }}</h3>
                     <div class="timeline-container" @scroll="synchronizeScroll">
-                        <TimelineChart :series="essay.combined_series" class="timeline" :zoom="zoom" />
+                        <TimelineChart :course_id="essay.course_id" :combined="true" class="timeline" :zoom="zoom" />
                     </div>
                 </div>
             </template>
@@ -29,38 +31,19 @@
     </v-container>
 </template>
 
-<script>
+<script setup>
 import TimelineChart from "./TimelineChart.vue";
 import TabTopInfo from "./info/TabTopInfo.vue";
 import TabBottomInfo from "./info/TabBottomInfo.vue";
+import { ref, useTemplateRef } from "vue";
+import { essays } from "@/logic/essay";
 
-export default {
-    name: "TimelineTab",
-    components: {
-        TabBottomInfo,
-        TabTopInfo,
-        TimelineChart,
-    },
-    data: () => {
-        return {
-            zoom: 100,
-        };
-    },
-    methods: {
-        getSelectedEssays() {
-            return this.$store.getters.selectedEssays;
-        },
-        synchronizeScroll(event) {
-            for (let element of this.$el.querySelectorAll(".timeline-container")) {
-                element.scrollLeft = event.target.scrollLeft;
-            }
-        },
-        zoomIn() {
-            this.zoom += 25;
-        },
-        zoomOut() {
-            this.zoom -= 25;
-        },
+const zoom = ref(100);
+const timelines = useTemplateRef('timelines');
+
+const synchronizeScroll = (event) => {
+    for (let element of timelines.value) {
+        element.querySelector('.timeline-container').scrollLeft = event.target.scrollLeft;
     }
 }
 </script>

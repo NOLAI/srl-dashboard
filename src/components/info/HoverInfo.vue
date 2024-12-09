@@ -1,32 +1,19 @@
 <template>
     <v-row class="explainer-heading">
-        <span v-if="getExplanation()">
-            {{ $t("categories." + getExplanation()) }}
-        </span>
-        <span v-else>
-            {{ $t("explanations.title") }}
+        <span>
+            {{ $t(process.last_hover ? "process." + (process.selected ?? process.last_hover) :
+                'explanation.title') }}
         </span>
         <v-divider />
-        <p v-if="getExplanation()">
-            {{ $t("explanations." + getExplanation()) }}
-        </p>
-        <p v-else>
-            {{ $t("explanations.NietGedetecteerd") }}
+        <p>
+            {{ $t(process.last_hover ? "explanation." + (process.selected ?? process.last_hover) :
+                'explanation.title') }}
         </p>
     </v-row>
 </template>
 
-<script>
-import { GET_EXPLANATION } from "../../store/storeconstants";
-
-export default {
-    name: "HoverInfo",
-    methods: {
-        getExplanation() {
-            return this.$store.getters[`explanation/${GET_EXPLANATION}`]
-        },
-    }
-}
+<script setup>
+import { process } from "@/logic/process";
 </script>
 
 <style scoped></style>
