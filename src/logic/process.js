@@ -4,6 +4,8 @@ import { auth } from '@/logic/auth'
 const cache = {}
 
 export const loadProcesses = async (courseId) => {
+  processState.selected = null
+  processState.lastHover = null
   if (!cache[auth.user.id]) cache[auth.user.id] = {}
   if (cache[auth.user.id][courseId]) {
     return cache[auth.user.id][courseId]
@@ -19,7 +21,7 @@ export const loadProcesses = async (courseId) => {
   return []
 }
 
-export const process = reactive({
+export const processState = reactive({
   selected: null,
-  last_hover: null
+  lastHover: null
 })
