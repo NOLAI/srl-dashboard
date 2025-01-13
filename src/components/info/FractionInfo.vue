@@ -1,7 +1,7 @@
 <template>
     <v-row class="explainer-heading">
         <span>
-            {{ props.title }}
+            {{ props.type ? $t("process." + props.type) : props.title }}
         </span>
         <v-divider />
         <strong v-if="!props.type" style="margin-bottom: 10px">{{ $t('process.metacognition') }}</strong>
@@ -9,8 +9,8 @@
             <p class="explainer-perc" @mouseover="hover(item.process)" @click="select(item.process)"
                 v-for="item in percentages.metacognition" :key="item.process">
                 <span class="dot"
-                    :style="'background-color: ' + (process.selected == null || process.selected == item.process ? item.colour : '#bbb')"></span>
-                <span class="explainer-perc-number">
+                    :style="'background-color: ' + (processState.selected == null || processState.selected == item.process ? item.colour : '#bbb')"></span>
+                <span class="explainer-perc-number" v-if="props.show_percentage">
                     {{ Math.round(item.value / percentages.total * 100).toFixed(0) }}%
                 </span>
                 <span class="explainer-perc-text">
@@ -23,8 +23,8 @@
             <p class="explainer-perc" @mouseover="hover(item.process)" @click="select(item.process)"
                 v-for="item in percentages.cognition" :key="item.process">
                 <span class="dot"
-                    :style="'background-color: ' + (process.selected == null || process.selected == item.process ? item.colour : '#bbb')"></span>
-                <span class="explainer-perc-number">
+                    :style="'background-color: ' + (processState.selected == null || processState.selected == item.process ? item.colour : '#bbb')"></span>
+                <span class="explainer-perc-number" v-if="props.show_percentage">
                     {{ Math.round(item.value / percentages.total * 100).toFixed(0) }}%
                 </span>
                 <span class="explainer-perc-text">
@@ -37,12 +37,13 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import { process, loadProcesses } from "@/logic/process";
+import { processState, loadProcesses } from "@/logic/process";
 
 const props = defineProps({
     title: String,
     type: String,
     course_id: Number,
+    show_percentage: Boolean,
 });
 
 const loading = ref(true);
@@ -54,6 +55,7 @@ const computePercentages = (processes) => {
     const percentages = { total: 0, metacognition: {}, cognition: {} };
     processes.forEach((p) => {
         percentages.total += p.end_time - p.start_time;
+        if (!percentages[p.type]) percentages[p.type] = {};
         if (!percentages[p.type][p.process]) {
             percentages[p.type][p.process] = {
                 process: p.process,
@@ -74,10 +76,34 @@ onMounted(async () => {
 });
 
 const hover = (id) => {
-    process.last_hover = id;
+    processState.lastHover = id;
 };
 
 const select = (id) => {
-    process.selected = process.selected == id ? null : id;
+    processState.selected = processState.selected == id ? null : id;
 };
 </script>
+
+<style scoped>
+.explainer-heading>span {
+    font-weight: 600;
+    font-size: 13pt;
+    text-align: left;
+}
+
+.v-divider {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    color: #000;
+    border-top-width: 2px;
+}
+
+.dot {
+    height: .9em;
+    width: .9em;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+    opacity: 0.7;
+}
+</style>

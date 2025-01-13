@@ -14,7 +14,11 @@
     "rereading": "Herlezen is het opnieuw lezen van een tekst.",
     "writing": "Schrijven is het schrijven van het essay.",
     "organising": "Noteren is het maken of lezen van notities.",
-    "other": "Geen informatie"
+    "other": "Geen informatie",
+    "copying": "Overnemen",
+    "editing": "Tekst aanpassen",
+    "structuring": "Structureren",
+    "expanding": "Eigen informatie toevoegen"
   },
   "process": {
     "cognition": "Cognitie",
@@ -29,7 +33,26 @@
     "planning": "Plannen",
     "evaluation": "Evaluatie",
     "monitoring": "Monitoren",
-    "not_detected": "Niet gedetecteerd"
+    "not_detected": "Niet gedetecteerd",
+    "copying": "Overnemen",
+    "editing": "Tekst aanpassen",
+    "structuring": "Structureren",
+    "expanding": "Eigen informatie toevoegen"
+  },
+  "goals": {
+    "goals": "Productdoelen",
+    "subgoals": "Behaalde onderdelen",
+    "structure": "Tekstopbouw",
+    "relevance": "Relevantie",
+    "main_points": "Hoofdzaken",
+    "starting_with_salutation": "Aanhef",
+    "introduction_on_topic": "Introductie",
+    "at_least_7_paragraphs": "Alinea's",
+    "with_headers_in_order": "Kopjes",
+    "conclusion_on_topic": "Conclusie",
+    "ending_with_greetings": "Slotgroet",
+    "paragraph": "Alinea {number}",
+    "main_point": "{name}"
   },
   "signin": {
     "title": "Dashboard leerproces",
