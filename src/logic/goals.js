@@ -5,7 +5,8 @@ const cache = {}
 
 export const loadGoals = async (courseId) => {
   goalsState.selected = null
-  goalsState.lastHover = null
+  goalsState.hover = null
+  goalsState.selectedSubgoal = null
   if (!cache[auth.user.id]) cache[auth.user.id] = {}
   if (cache[auth.user.id][courseId]) {
     return cache[auth.user.id][courseId]
@@ -21,5 +22,6 @@ export const loadGoals = async (courseId) => {
 
 export const goalsState = reactive({
   selected: null,
-  lastHover: null
+  hover: null,
+  selectedSubgoal: null
 })
