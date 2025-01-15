@@ -1,37 +1,40 @@
 <template>
-    <v-row class="explainer-heading">
-        <span>
+    <v-row>
+        <span class="explainer-heading">
             {{ props.type ? $t("process." + props.type) : props.title }}
         </span>
         <v-divider />
-        <strong v-if="!props.type" style="margin-bottom: 10px">{{ $t('process.metacognition') }}</strong>
-        <template v-if="!props.type || props.type == 'metacognition'">
-            <p class="explainer-perc" @mouseover="hover(process)" @click="select(process)"
-                v-for="time, process in percentages.metacognition" :key="process">
-                <span class="dot"
-                    :class="'bg-process-' + (processState.selected == null || processState.selected == process ? process : 'disabled')"></span>
-                <span class="explainer-perc-number" v-if="props.show_percentage">
-                    {{ Math.round(time / percentages.time * 100).toFixed(0) }}%
-                </span>
-                <span class="explainer-perc-text">
-                    {{ $t("process." + process) }}
-                </span>
-            </p>
-        </template>
-        <strong v-if="!props.type" style="margin-bottom: 10px">{{ $t('process.cognition') }}</strong>
-        <template v-if="!props.type || props.type == 'cognition'">
-            <p class="explainer-perc" @mouseover="hover(process)" @click="select(process)"
-                v-for="time, process in percentages.cognition" :key="process">
-                <span class="dot"
-                    :class="'bg-process-' + (processState.selected == null || processState.selected == process ? process : 'disabled')"></span>
-                <span class="explainer-perc-number" v-if="props.show_percentage">
-                    {{ Math.round(time / percentages.time * 100).toFixed(0) }}%
-                </span>
-                <span class="explainer-perc-text">
-                    {{ $t("process." + process) }}
-                </span>
-            </p>
-        </template>
+        <div v-if="!loading" class="flex flex-wrap">
+            <strong v-if="!props.type" style="margin-bottom: 10px">{{ $t('process.metacognition') }}</strong>
+            <template v-if="!props.type || props.type == 'metacognition'">
+                <p class="explainer-perc" @mouseover="hover(process)" @click="select(process)"
+                    v-for="(time, process) in percentages.metacognition" :key="process">
+                    <span class="dot"
+                        :class="'bg-process-' + (processState.selected == null || processState.selected == process ? process : 'disabled')"></span>
+                    <span class="explainer-perc-number" v-if="props.show_percentage">
+                        {{ Math.round(time / percentages.total * 100).toFixed(0) }}%
+                    </span>
+                    <span class="explainer-perc-text">
+                        {{ $t("process." + process) }}
+                    </span>
+                </p>
+            </template>
+            <strong v-if="!props.type" style="margin-bottom: 10px">{{ $t('process.cognition') }}</strong>
+            <template v-if="!props.type || props.type == 'cognition'">
+                <p class="explainer-perc" @mouseover="hover(process)" @click="select(process)"
+                    v-for="time, process in percentages.cognition" :key="process">
+                    <span class="dot"
+                        :class="'bg-process-' + (processState.selected == null || processState.selected == process ? process : 'disabled')"></span>
+                    <span class="explainer-perc-number" v-if="props.show_percentage">
+                        {{ Math.round(time / percentages.total * 100).toFixed(0) }}%
+                    </span>
+                    <span class="explainer-perc-text">
+                        {{ $t("process." + process) }}
+                    </span>
+                </p>
+            </template>
+        </div>
+        <v-progress-linear v-else indeterminate></v-progress-linear>
     </v-row>
 </template>
 
@@ -76,7 +79,7 @@ const computePercentages = (processes) => {
         percentages.total += p.end_time - p.start_time;
         percentages[p.type][p.process] += p.end_time - p.start_time;
     });
-    if (percentages.writing > 0) {
+    if (percentages.cognition.writing > 0) {
         delete percentages.cognition.copying;
         delete percentages.cognition.editing;
         delete percentages.cognition.structuring;
@@ -102,7 +105,7 @@ const select = (id) => {
 </script>
 
 <style scoped>
-.explainer-heading>span {
+.explainer-heading {
     font-weight: 600;
     font-size: 13pt;
     text-align: left;
