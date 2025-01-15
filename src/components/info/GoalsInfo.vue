@@ -8,13 +8,13 @@
                 <v-divider />
                 <div v-if="!loading">
                     <div class="mb-4" :key="goal.name" v-for="goal in goals" @mouseover="hover(goal)"
-                        @click="select(goal)">
+                        @mouseout="hover(null)" @click="select(goal)">
                         <span class="font-bold mr-4 w-32 inline-block pb-2">{{ t('goals.' + goal.name) }}</span>
-                        <div class="opacity-75 hover:opacity-100 inline-block align-middle">
-                            <span class="dot mr-2"
-                                :style="`background-color: ${subgoal.completed ? goal.colour : '#EBEBEB'}; ${goalsState.selected && goalsState.selected != goal ? 'filter: contrast(30%) brightness(150%);' : ''}`"
+                        <div class="inline-block align-middle hover:!opacity-100"
+                            :class="goalsState.selected == goal ? 'opacity-100' : 'opacity-75'">
+                            <span class="dot mr-2" :class="'bg-goals-' + (subgoal.completed ? goal.name : 'disabled')"
                                 :key="goal.name + '-' + subgoal.name"
-                                v-for="subgoal in goal.subgoals.slice(0, 8)"></span>
+                                v-for="subgoal in goal.subgoals.toSorted(g => !g.completed).slice(0, 12)"></span>
                         </div>
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                 <v-divider />
                 <ul v-if="!loading">
                     <li class="mb-2" :key="subgoal.name"
-                        v-for="subgoal in (goalsState.selected ? goalsState.selected.subgoals : (goalsState.lastHover ? goalsState.lastHover.subgoals : []))">
+                        v-for="subgoal in (goalsState.selected?.subgoals || goalsState.hover?.subgoals)">
                         <v-icon :class="subgoal.completed ? 'text-lime-600' : 'text-red-600'" class="text-3xl"
                             :icon="subgoal.completed ? 'mdi-check' : 'mdi-close'"></v-icon>
                         {{ Array.isArray(subgoal.name) ? t('goals.' + subgoal.name[0], subgoal.name[1]) : t('goals.' +
@@ -61,15 +61,12 @@ onMounted(async () => {
 });
 
 const hover = (goal) => {
-    goalsState.lastHover = goal;
+    goalsState.hover = goal;
 }
 
 const select = (goal) => {
-    if (goalsState.selected == goal) {
-        goalsState.selected = null;
-    } else {
-        goalsState.selected = goal;
-    }
+    goalsState.selectedSubgoal = null;
+    goalsState.selected = goalsState.selected != goal ? goal : null;
 }
 </script>
 

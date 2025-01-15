@@ -11,21 +11,6 @@
   margin-bottom: 5px !important;
 }
 
-.explainer-perc {
-  display: inline;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.explainer-perc-number {
-  display: inline-block;
-  width: 40px;
-}
-
-.explainer-perc-text {
-  font-style: italic;
-}
-
 .title {
   font-weight: bold;
   font-size: 20pt;
