@@ -6,29 +6,29 @@
         <v-divider />
         <strong v-if="!props.type" style="margin-bottom: 10px">{{ $t('process.metacognition') }}</strong>
         <template v-if="!props.type || props.type == 'metacognition'">
-            <p class="explainer-perc" @mouseover="hover(item.process)" @click="select(item.process)"
-                v-for="item in percentages.metacognition" :key="item.process">
+            <p class="explainer-perc" @mouseover="hover(process)" @click="select(process)"
+                v-for="time, process in percentages.metacognition" :key="process">
                 <span class="dot"
-                    :style="'background-color: ' + (processState.selected == null || processState.selected == item.process ? item.colour : '#bbb')"></span>
+                    :class="'bg-process-' + (processState.selected == null || processState.selected == process ? process : 'disabled')"></span>
                 <span class="explainer-perc-number" v-if="props.show_percentage">
-                    {{ Math.round(item.value / percentages.total * 100).toFixed(0) }}%
+                    {{ Math.round(time / percentages.time * 100).toFixed(0) }}%
                 </span>
                 <span class="explainer-perc-text">
-                    {{ $t("process." + item.process) }}
+                    {{ $t("process." + process) }}
                 </span>
             </p>
         </template>
         <strong v-if="!props.type" style="margin-bottom: 10px">{{ $t('process.cognition') }}</strong>
         <template v-if="!props.type || props.type == 'cognition'">
-            <p class="explainer-perc" @mouseover="hover(item.process)" @click="select(item.process)"
-                v-for="item in percentages.cognition" :key="item.process">
+            <p class="explainer-perc" @mouseover="hover(process)" @click="select(process)"
+                v-for="time, process in percentages.cognition" :key="process">
                 <span class="dot"
-                    :style="'background-color: ' + (processState.selected == null || processState.selected == item.process ? item.colour : '#bbb')"></span>
+                    :class="'bg-process-' + (processState.selected == null || processState.selected == process ? process : 'disabled')"></span>
                 <span class="explainer-perc-number" v-if="props.show_percentage">
-                    {{ Math.round(item.value / percentages.total * 100).toFixed(0) }}%
+                    {{ Math.round(time / percentages.time * 100).toFixed(0) }}%
                 </span>
                 <span class="explainer-perc-text">
-                    {{ $t("process." + item.process) }}
+                    {{ $t("process." + process) }}
                 </span>
             </p>
         </template>
@@ -52,21 +52,38 @@ const processes = ref([]);
 const percentages = computed(() => computePercentages(processes.value));
 
 const computePercentages = (processes) => {
-    const percentages = { total: 0, metacognition: {}, cognition: {} };
-    processes.forEach((p) => {
-        percentages.total += p.end_time - p.start_time;
-        if (!percentages[p.type]) percentages[p.type] = {};
-        if (!percentages[p.type][p.process]) {
-            percentages[p.type][p.process] = {
-                process: p.process,
-                type: p.type,
-                colour: p.colour,
-                value: p.end_time - p.start_time,
-            };
-            return;
+    const percentages = {
+        total: 0,
+        metacognition: {
+            orientation: 0,
+            planning: 0,
+            evaluation: 0,
+            monitoring: 0,
+        },
+        cognition: {
+            reading: 0,
+            rereading: 0,
+            writing: 0,
+            organising: 0,
+            copying: 0,
+            editing: 0,
+            structuring: 0,
+            expanding: 0,
         }
-        percentages[p.type][p.process].value += p.end_time - p.start_time;
+    };
+    processes.forEach((p) => {
+        if (!(p.type in percentages) || !(p.process in percentages[p.type])) return;
+        percentages.total += p.end_time - p.start_time;
+        percentages[p.type][p.process] += p.end_time - p.start_time;
     });
+    if (percentages.writing > 0) {
+        delete percentages.cognition.copying;
+        delete percentages.cognition.editing;
+        delete percentages.cognition.structuring;
+        delete percentages.cognition.expanding;
+    } else {
+        delete percentages.cognition.writing;
+    }
     return percentages;
 };
 
@@ -98,12 +115,27 @@ const select = (id) => {
     border-top-width: 2px;
 }
 
+.explainer-perc {
+    display: inline;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.explainer-perc-number {
+    display: inline-block;
+    width: 40px;
+}
+
+.explainer-perc-text {
+    font-style: italic;
+}
+
 .dot {
     height: .9em;
     width: .9em;
     border-radius: 50%;
     display: inline-block;
     margin-right: 10px;
-    opacity: 0.7;
+    opacity: 0.75;
 }
 </style>

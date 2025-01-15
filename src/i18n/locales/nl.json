@@ -15,10 +15,10 @@
     "writing": "Schrijven is het schrijven van het essay.",
     "organising": "Noteren is het maken of lezen van notities.",
     "other": "Geen informatie",
-    "copying": "Overnemen",
-    "editing": "Tekst aanpassen",
-    "structuring": "Structureren",
-    "expanding": "Eigen informatie toevoegen"
+    "copying": "Overnemen is het halen van informatie uit de bronteksten, dit kan zowel in eigen woorden of exact zijn overgenomen.",
+    "editing": "Aanpassen is het maken van kleine aanpassingen in de tekst zoals een spelfout verbeteren. Ook wel editen genoemd.",
+    "structuring": "Structureren is het aanbrengen van structuur in de tekst, bijvoorbeeld door een kopje te maken of tekst op een andere plek te zetten.",
+    "expanding": " Eigen informatie toevoegen is het toevoegen van informatie die niet uit de brontekst te herleiden valt."
   },
   "process": {
     "cognition": "Cognitie",

@@ -33,7 +33,7 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { Timeline } from 'vue-timeline-chart';
-import 'vue-timeline-chart/style.css';
+import '@/assets/timeline.css';
 import { loadProcesses, processState } from "@/logic/process";
 import { goalsState } from "@/logic/goals";
 import { useI18n } from 'vue-i18n'
@@ -48,10 +48,10 @@ const props = defineProps({
 const loading = ref(true);
 const processes = ref([]);
 
-const groups = computed(() => props.combined ? [{ id: 'timeline', className: 'timeline-group' }] : [
-    { id: 'events' },
-    { id: 'metacognition', label: t("process.metacognition"), className: 'timeline-group' },
-    { id: 'cognition', label: t("process.cognition"), className: 'timeline-group' },
+const groups = computed(() => props.combined ? [{ id: 'timeline' }] : [
+    { id: 'events', className: 'events' },
+    { id: 'metacognition', label: t("process.metacognition") },
+    { id: 'cognition', label: t("process.cognition") },
 ])
 
 const items = computed(() => mapProcesses(processes.value, goalsState));
@@ -73,9 +73,9 @@ const mapProcesses = (processes, goalsState) => {
             const seconds = Math.round((duration / 1000) - (minutes * 60));
             const duration_text = (minutes >= 1 ? minutes + ' ' + t(minutes > 1 ? "general.minutes" : "general.minute") : '') + (minutes > 0 && seconds > 0 ? ' ' + t("general.and") + ' ' : '') + (seconds >= 1 ? seconds + ' ' + t(seconds > 1 ? "general.seconds" : "general.second") : '');
 
-            let colour = p.colour;
-            if (processState.selected && processState.selected != p.process) colour = "#EBEBEB";
-            if (goalsState.selectedSubgoal && (p.end_time < highlight_start || p.start_time > highlight_end)) colour = "#EBEBEB";
+            let disabled = false;
+            if (processState.selected && processState.selected != p.process) disabled = true;
+            if (goalsState.selectedSubgoal && (p.end_time < highlight_start || p.start_time > highlight_end)) disabled = true;
 
             return {
                 group: props.combined ? 'timeline' : p.type,
@@ -85,8 +85,7 @@ const mapProcesses = (processes, goalsState) => {
                 duration_text,
                 start: p.start_time,
                 end: p.end_time,
-                className: 'timeline-item',
-                cssVariables: { '--item-background': colour },
+                className: 'bg-process-' + (disabled ? 'disabled' : p.process),
             };
         });
 };
@@ -95,12 +94,11 @@ const mapGoalEvents = (events) => {
     return events.map((e) => {
         return {
             group: 'events',
-            type: 'check',
+            type: 'event',
             names: e.names.map((n) => Array.isArray(n) ? t('goals.' + n[0], n[1]) : t('goals.' + n)),
             time: e.time,
             start: e.time - 30000,
             end: e.time + 30000,
-            className: 'timeline-event',
         };
     });
 };
@@ -121,46 +119,9 @@ const select = ({ item }) => {
         goalsState.selected = null;
         goalsState.selectedSubgoal = null;
     }
-    if (item.type == 'check') {
+    if (item.type == 'event') {
         processState.selected = null;
         goalsState.selectedSubgoal = goalsState.selectedSubgoal?.time == item.time ? null : item;
     }
 }
-
 </script>
-<style>
-.timeline-group {
-    border-top: 0 !important;
-}
-
-.timeline-group .group-label {
-    font-weight: 600;
-    font-size: 1em !important;
-    padding: .8em !important;
-}
-
-.timeline-group .group-items {
-    height: 5em !important;
-}
-
-.timeline-item {
-    border-radius: 0 !important;
-}
-
-.timestamps {
-    background-color: #FFFFFF00 !important;
-}
-
-.timeline-event {
-    background-color: #FFFFFF00 !important;
-    text-align: center;
-    height: 20em !important;
-}
-
-.timeline-event .highlight {
-    background-color: pink;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-</style>

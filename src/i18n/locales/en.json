@@ -15,10 +15,10 @@
     "writing": "Writing is the act of writing the essay.",
     "organising": "Note-taking is the taking or reading of notes.",
     "other": "No information",
-    "copying": "Copying",
-    "editing": "Editing",
-    "structuring": "Structuring",
-    "expanding": "Expanding"
+    "copying": "Copying is taking information from the source texts, this can be in your own words or exactly copied.",
+    "editing": "Editing is making small changes in the text such as correcting a spelling mistake.",
+    "structuring": "Structuring is adding structure to the text, for example by making a heading or moving text to another place.",
+    "expanding": "Expanding is adding information that cannot be deduced from the source text."
   },
   "process": {
     "cognition": "Cognition",

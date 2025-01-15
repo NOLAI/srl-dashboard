@@ -10,10 +10,9 @@
                     <div class="mb-4" :key="goal.name" v-for="goal in goals" @mouseover="hover(goal)"
                         @mouseout="hover(null)" @click="select(goal)">
                         <span class="font-bold mr-4 w-32 inline-block pb-2">{{ t('goals.' + goal.name) }}</span>
-                        <div class="hover:opacity-100 inline-block align-middle"
+                        <div class="inline-block align-middle hover:!opacity-100"
                             :class="goalsState.selected == goal ? 'opacity-100' : 'opacity-75'">
-                            <span class="dot mr-2"
-                                :style="`background-color: ${subgoal.completed ? goal.colour : '#EBEBEB'}; ${goalsState.selected && goalsState.selected != goal ? 'filter: contrast(30%) brightness(150%);' : ''}`"
+                            <span class="dot mr-2" :class="'bg-goals-' + (subgoal.completed ? goal.name : 'disabled')"
                                 :key="goal.name + '-' + subgoal.name"
                                 v-for="subgoal in goal.subgoals.toSorted(g => !g.completed).slice(0, 12)"></span>
                         </div>
