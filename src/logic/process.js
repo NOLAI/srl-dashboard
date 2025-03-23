@@ -1,5 +1,6 @@
 import { reactive } from 'vue'
 import { auth } from '@/logic/auth'
+import { fetch } from '@/logic/fetch'
 
 const cache = {}
 
@@ -10,15 +11,13 @@ export const loadProcesses = async (courseId) => {
   if (cache[auth.user.id][courseId]) {
     return cache[auth.user.id][courseId]
   }
-  const response = await fetch(
-    import.meta.env.VITE_API_URL + `/process/${auth.user.id}/${courseId}`
-  )
-  if (response.ok) {
-    const processes = await response.json()
+  try{
+    const processes = await fetch(`/process/${auth.user.id}/${courseId}`)
     cache[auth.user.id][courseId] = processes
     return processes
+  } catch (error) {
+    return []
   }
-  return []
 }
 
 export const processState = reactive({

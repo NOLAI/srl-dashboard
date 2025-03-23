@@ -1,27 +1,27 @@
 import { reactive } from 'vue'
 import { auth } from '@/logic/auth'
+import { fetch } from '@/logic/fetch'
 
 const cache = {}
 
 export const loadGoals = async (courseId) => {
   goalsState.selected = null
-  goalsState.hover = null
-  goalsState.selectedSubgoal = null
+  goalsState.selectedSubgoals = []
   if (!cache[auth.user.id]) cache[auth.user.id] = {}
   if (cache[auth.user.id][courseId]) {
     return cache[auth.user.id][courseId]
   }
-  const response = await fetch(import.meta.env.VITE_API_URL + `/goals/${auth.user.id}/${courseId}`)
-  if (response.ok) {
-    const goals = await response.json()
+
+  try {
+    const goals = await fetch(`/goals/${auth.user.id}/${courseId}`)
     cache[auth.user.id][courseId] = goals
     return goals
+  } catch (error) {
+    return []
   }
-  return []
 }
 
 export const goalsState = reactive({
   selected: null,
-  hover: null,
-  selectedSubgoal: null
+  selectedEvents: []
 })

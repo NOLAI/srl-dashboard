@@ -1,14 +1,14 @@
 import { computed, reactive } from 'vue'
+import { fetch } from '@/logic/fetch'
 
 export const signin = (username) => {
   return new Promise((resolve, reject) => {
-    fetch(import.meta.env.VITE_API_URL + `/user/${username}`).then(async (response) => {
-      if (response.ok) {
-        const user = await response.json()
-        localStorage.setItem('user', JSON.stringify(user))
-        auth.user = user
-        resolve(user)
-      } else if (response.status === 404) {
+    fetch(`/user/${username}`).then(async (user) => {
+      localStorage.setItem('user', JSON.stringify(user))
+      auth.user = user
+      resolve(user)
+    }).catch((response) => {
+      if (response.status === 404) {
         reject('incorrectUsernameError')
       } else {
         reject('generalError')
