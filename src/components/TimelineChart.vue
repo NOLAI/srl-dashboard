@@ -9,12 +9,12 @@
                         location="bottom">
                         <template v-slot:activator="{ props }">
                             <v-icon v-bind="props" class="text-3xl w-full"
-                                :class="!goalsState.selectedSubgoal || goalsState.selectedSubgoal.time == item.time ? 'text-lime-600' : 'text-process-disabled'"
+                                :class="!goalsState.selectedEvents.length || goalsState.selectedEvents.some(subgoal => subgoal.time == item.time) ? 'text-lime-600' : 'text-process-disabled'"
                                 icon="mdi-check" />
                         </template>
                     </v-tooltip>
                     <div class="highlight"
-                        v-if="!goalsState.selectedSubgoal || goalsState.selectedSubgoal.time == item.time">
+                        v-if="!goalsState.selectedEvents.length || goalsState.selectedEvents.some(subgoal => subgoal.time == item.time)">
                     </div>
                 </div>
                 <v-tooltip v-else :text="item.name + ': ' + item.duration_text" location="top">
@@ -55,11 +55,13 @@ const groups = computed(() => props.combined ? [{ id: 'timeline' }] : [
 ])
 
 const items = computed(() => mapProcesses(processes.value, goalsState));
-const events = computed(() => goalsState.selected || goalsState.hover ? mapGoalEvents(goalsState.selected?.events || goalsState.hover?.events) : []);
+const events = computed(() => goalsState.selected ? mapGoalEvents(goalsState.selected?.events) : []);
 
 const mapProcesses = (processes, goalsState) => {
-    const highlight_start = goalsState.selectedSubgoal ? Math.min(processes.filter(p => p.end_time < goalsState.selectedSubgoal.start).at(-3).end_time, goalsState.selectedSubgoal.start - 60000) : 0;
-    const highlight_end = goalsState.selectedSubgoal ? Math.max(processes.filter(p => p.start_time > goalsState.selectedSubgoal.end).at(2).start_time, goalsState.selectedSubgoal.end + 60000) : 0;
+    const highlights = goalsState.selectedEvents.map(subgoal => ({
+        start: Math.min(processes.filter(p => p.end_time < subgoal.time).at(-3).end_time, subgoal.time - 60000),
+        end: Math.max(processes.filter(p => p.start_time > subgoal.time).at(2).start_time, subgoal.time + 60000),
+    }));
     return processes.flatMap(p => {
         if (props.combined || p.type != "other") return p;
         return [
@@ -75,7 +77,13 @@ const mapProcesses = (processes, goalsState) => {
 
             let disabled = false;
             if (processState.selected && processState.selected != p.process) disabled = true;
-            if (goalsState.selectedSubgoal && (p.end_time < highlight_start || p.start_time > highlight_end)) disabled = true;
+            if (highlights.length) {
+                let inHighlight = false;
+                for (let highlight of highlights) {
+                    if (p.start_time >= highlight.start && p.end_time <= highlight.end) inHighlight = true;
+                }
+                if (!inHighlight) disabled = true;
+            }
 
             return {
                 group: props.combined ? 'timeline' : p.type,
@@ -117,11 +125,15 @@ const select = ({ item }) => {
     if (item.type == 'range') {
         processState.selected = processState.selected == item.process ? null : item.process;
         goalsState.selected = null;
-        goalsState.selectedSubgoal = null;
+        goalsState.selectedEvents = [];
     }
     if (item.type == 'event') {
         processState.selected = null;
-        goalsState.selectedSubgoal = goalsState.selectedSubgoal?.time == item.time ? null : item;
+        if (goalsState.selectedEvents.length == 1 && goalsState.selectedEvents[0].time == item.time) {
+            goalsState.selectedEvents = [];
+        } else {
+            goalsState.selectedEvents = [item];
+        }
     }
 }
 </script>

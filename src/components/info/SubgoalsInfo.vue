@@ -1,20 +1,18 @@
 <template>
     <v-row class="explainer-heading">
         <span>
-            {{ props.title ?? t('goals.goals') }}
+            {{ t('goals.subgoals') }}
         </span>
         <v-divider />
-        <div v-if="!loading">
-            <div class="mb-4" :key="goal.name" v-for="goal in goals" @click="select(goal)">
-                <span class="font-bold mr-4 w-32 inline-block pb-2">{{ t('goals.' + goal.name) }}</span>
-                <div class="inline-block align-middle hover:!opacity-100"
-                    :class="goalsState.selected == goal ? 'opacity-100' : 'opacity-75'">
-                    <span class="dot mr-2" :class="'bg-goals-' + (subgoal.completed ? goal.name : 'disabled')"
-                        :key="goal.name + '-' + subgoal.name"
-                        v-for="subgoal in goal.subgoals.toSorted(g => !g.completed).slice(0, 12)"></span>
-                </div>
-            </div>
-        </div>
+        <ul v-if="!loading">
+            <li class="mb-2" :key="subgoal.name" v-for="subgoal in goalsState.selected?.subgoals"
+                @click="selectSubgoal(subgoal)">
+                <v-icon :class="subgoal.completed ? 'text-lime-600' : 'text-red-600'" class="text-3xl"
+                    :icon="subgoal.completed ? 'mdi-check' : 'mdi-close'"></v-icon>
+                {{ Array.isArray(subgoal.name) ? t('goals.' + subgoal.name[0], subgoal.name[1]) : t('goals.' +
+                    subgoal.name) }}
+            </li>
+        </ul>
         <v-progress-linear v-else indeterminate></v-progress-linear>
     </v-row>
 </template>
@@ -27,7 +25,6 @@ const { t } = useI18n()
 
 const props = defineProps({
     course_id: Number,
-    title: String,
 });
 
 const loading = ref(true);
@@ -38,9 +35,9 @@ onMounted(async () => {
     loading.value = false;
 });
 
-const select = (goal) => {
-    goalsState.selectedEvents = [];
-    goalsState.selected = goalsState.selected != goal ? goal : null;
+const selectSubgoal = (subgoal) => {
+    const events = goalsState.selected.events.filter(event => event.names.includes(subgoal.name))
+    goalsState.selectedEvents = events;
 }
 </script>
 
