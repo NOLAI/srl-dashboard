@@ -13,7 +13,7 @@ let essays = ref([]);
 
 onMounted(async () => {
     essays.value = await loadEssays();
-    selectedEssays.selected = essays.value;
+    selectedEssays.selected = [essays.value[essays.value.length - 1]];
     loading.value = false;
 });
 </script>
