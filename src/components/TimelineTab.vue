@@ -23,17 +23,13 @@
                 <v-col cols="4" class="px-8">
                     <v-row>
                         <v-col cols="6" class="pr-8">
-                            <FractionInfo
-                                :title="$i18n.locale == 'nl' ? essays.selected[0].name_nl : essays.selected[0].name_en"
-                                :course_id="essays.selected[0].course_id" type="metacognition" />
+                            <FractionInfo :course_id="essays.selected[0].course_id" type="metacognition" />
                         </v-col>
                         <v-col cols="6" class="pl-8">
-                            <FractionInfo
-                                :title="$i18n.locale == 'nl' ? essays.selected[0].name_nl : essays.selected[0].name_en"
-                                :course_id="essays.selected[0].course_id" type="cognition" />
+                            <FractionInfo :course_id="essays.selected[0].course_id" type="cognition" />
                         </v-col>
                     </v-row>
-                    <HoverInfo class="mt-8" />
+                    <HoverInfo class="mt-8 mb-2" />
                 </v-col>
 
             </v-row>
@@ -51,24 +47,19 @@
                 <v-row>
                     <v-col :key="essay.course_id" :cols="Math.floor(8 / essays.selected.length)"
                         class="explainer-col px-8" v-for="essay in essays.selected">
-                        <GoalsInfo
-                            :title="$i18n.locale == 'nl' ? essays.selected[0].name_nl : essays.selected[0].name_en"
+                        <GoalsInfo :title="$i18n.locale == 'nl' ? essay.name_nl : essay.name_en"
                             :course_id="essay.course_id" />
                     </v-col>
                     <v-col cols="4" class="px-8">
                         <v-row>
                             <v-col cols="6" class="pr-8">
-                                <FractionInfo
-                                    :title="$i18n.locale == 'nl' ? essays.selected[0].name_nl : essays.selected[0].name_en"
-                                    :course_id="essays.selected[0].course_id" type="metacognition" />
+                                <FractionInfo :course_id="essays.selected[0].course_id" type="metacognition" />
                             </v-col>
                             <v-col cols="6" class="pl-8">
-                                <FractionInfo
-                                    :title="$i18n.locale == 'nl' ? essays.selected[0].name_nl : essays.selected[0].name_en"
-                                    :course_id="essays.selected[0].course_id" type="cognition" />
+                                <FractionInfo :course_id="essays.selected[0].course_id" type="cognition" />
                             </v-col>
                         </v-row>
-                        <HoverInfo class="mt-8" />
+                        <HoverInfo class="mt-8 mb-2" />
                     </v-col>
                 </v-row>
             </v-row>
