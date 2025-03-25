@@ -36,7 +36,7 @@ onMounted(async () => {
 });
 
 const selectSubgoal = (subgoal) => {
-    const events = goalsState.selected.events.filter(event => event.names.includes(subgoal.name))
+    const events = goalsState.selected.events.filter(event => event.names.map(JSON.stringify).includes(JSON.stringify(subgoal.name)))
     goalsState.selectedEvents = JSON.stringify(goalsState.selectedEvents) == JSON.stringify(events) ? [] : events;
 }
 </script>
