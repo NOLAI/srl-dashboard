@@ -10,8 +10,7 @@ export const fetch = (endpoint) => {
                 const body = await response.json();
                 resolve(body);
             } else {
-                const body = await response.json();
-                reject({body, status: response.status});
+                reject(response);
             }
         }).finally(() => {
             activeRequests.delete(endpoint);
