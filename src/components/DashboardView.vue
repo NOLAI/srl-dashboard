@@ -6,12 +6,18 @@
                 <v-tab value="timeline">
                     {{ $t("general.timelineTab") }}
                 </v-tab>
+                <v-tab value="questions">
+                    {{ $t("general.questionsTab") }}
+                </v-tab>
             </v-tabs>
 
             <v-card-text>
                 <v-window v-model="tab">
                     <v-window-item value="timeline">
                         <TimelineTab />
+                    </v-window-item>
+                    <v-window-item value="questions">
+                        <QuestionsTab />
                     </v-window-item>
                 </v-window>
             </v-card-text>
@@ -21,6 +27,7 @@
 
 <script setup>
 import TimelineTab from "./TimelineTab.vue";
+import QuestionsTab from "./QuestionsTab.vue";
 import EssaySelector from "./EssaySelector.vue";
 import { ref } from "vue";
 
