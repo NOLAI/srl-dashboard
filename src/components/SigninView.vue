@@ -42,7 +42,7 @@
                     <label for="username">{{ $t("signin.username") }} </label><br>
                     <input type="text" id="username" class="w-100" v-model="username" />
                 </div>
-                <p class="error">{{ $t(error) }}</p>
+                <p class="error" v-if="error">{{ $t(error) }}</p>
                 <div>
                     <button class="btn btn-outline-dark" type="submit" v-on:click.prevent="signin()"
                         :disabled="loading">

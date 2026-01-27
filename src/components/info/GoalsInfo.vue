@@ -24,6 +24,7 @@ import { ref, onMounted } from "vue";
 import { goalsState, loadGoals } from "@/logic/goals";
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
+import { track } from "@/logic/tracking";
 
 const props = defineProps({
     course_id: Number,
@@ -40,7 +41,13 @@ onMounted(async () => {
 
 const select = (goal) => {
     goalsState.selectedEvents = [];
-    goalsState.selected = goalsState.selected != goal ? goal : null;
+    if (goalsState.selected != goal) {
+        goalsState.selected = goal;
+        track('goal_selected', { goal: goal.name });
+    } else {
+        goalsState.selected = null;
+        track('goal_deselected', { goal: goal.name });
+    }
 }
 </script>
 

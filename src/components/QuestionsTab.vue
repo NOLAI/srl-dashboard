@@ -52,7 +52,6 @@ const responses = ref([]);
 
 onMounted(async () => {
     responses.value = await loadQuestions();
-    console.log(responses.value);
     loading.value = false;
 });
 </script>

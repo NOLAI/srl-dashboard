@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import tracking from '@/logic/tracking'
 
 // Vuetify
 import vuetify from './plugins/vuetify'
@@ -18,3 +19,6 @@ app.use(vuetify)
 app.use(i18n)
 app.use(router)
 app.mount('#app')
+
+tracking.init()
+tracking.start()
