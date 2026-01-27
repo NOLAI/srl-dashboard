@@ -2,7 +2,7 @@
     <v-row>
         <v-card flat color="transparent" min-width="100%">
             <EssaySelector />
-            <v-tabs v-model="tab">
+            <v-tabs v-model="tab" @update:model-value="val => track('tab_changed', { tab: val })">
                 <v-tab value="timeline">
                     {{ $t("general.timelineTab") }}
                 </v-tab>
@@ -30,6 +30,7 @@ import TimelineTab from "./TimelineTab.vue";
 import QuestionsTab from "./QuestionsTab.vue";
 import EssaySelector from "./EssaySelector.vue";
 import { ref } from "vue";
+import { track } from "@/logic/tracking";
 
 const tab = ref("timeline");
 </script>

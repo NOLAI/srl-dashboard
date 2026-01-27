@@ -37,6 +37,7 @@ import '@/assets/timeline.css';
 import { loadProcesses, processState } from "@/logic/process";
 import { goalsState } from "@/logic/goals";
 import { useI18n } from 'vue-i18n'
+import { track } from "@/logic/tracking";
 const { t } = useI18n()
 
 const props = defineProps({
@@ -91,6 +92,9 @@ const mapProcesses = (processes, goalsState) => {
                 process: p.process,
                 name: t("process." + p.process),
                 duration_text,
+                duration,
+                minutes,
+                seconds,
                 start: p.start_time,
                 end: p.end_time,
                 className: 'bg-process-' + (disabled ? 'disabled' : p.process),
@@ -103,6 +107,7 @@ const mapGoalEvents = (events) => {
         return {
             group: 'events',
             type: 'event',
+            ids: e.names,
             names: e.names.map((n) => Array.isArray(n) ? t('goals.' + n[0], n[1]) : t('goals.' + n)),
             time: e.time,
             start: e.time - 30000,
@@ -118,12 +123,20 @@ onMounted(async () => {
 
 const hover = ({ item }) => {
     if (item == null) return;
-    if (item.type == 'range') processState.lastHover = item.process;
+    if (item.type == 'range') {
+        processState.lastHover = item.process;
+    }
 }
 const select = ({ item }) => {
     if (item == null) return;
     if (item.type == 'range') {
-        processState.selected = processState.selected == item.process ? null : item.process;
+        if (processState.selected == item.process) {
+            processState.selected = null;
+            track('process_deselected', item);
+        } else {
+            processState.selected = item.process;
+            track('process_selected', item);
+        }
         goalsState.selected = null;
         goalsState.selectedEvents = [];
     }
@@ -131,8 +144,10 @@ const select = ({ item }) => {
         processState.selected = null;
         if (goalsState.selectedEvents.length == 1 && goalsState.selectedEvents[0].time == item.time) {
             goalsState.selectedEvents = [];
+            track('subgoal_events_deselected', { events: [item] });
         } else {
             goalsState.selectedEvents = [item];
+            track('subgoal_events_selected', { events: [item] });
         }
     }
 }

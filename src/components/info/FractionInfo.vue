@@ -41,6 +41,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { processState, loadProcesses } from "@/logic/process";
+import { track } from "@/logic/tracking";
 
 const props = defineProps({
     title: String,
@@ -100,7 +101,13 @@ const hover = (id) => {
 };
 
 const select = (id) => {
-    processState.selected = processState.selected == id ? null : id;
+    if (processState.selected == id) {
+        processState.selected = null;
+        track('process_type_deselected', { process: id });
+    } else {
+        processState.selected = id;
+        track('process_type_selected', { process: id });
+    }
 };
 </script>
 

@@ -21,6 +21,7 @@
 import { ref, onMounted } from "vue";
 import { goalsState, loadGoals } from "@/logic/goals";
 import { useI18n } from 'vue-i18n'
+import { track } from "@/logic/tracking";
 const { t } = useI18n()
 
 const props = defineProps({
@@ -37,7 +38,13 @@ onMounted(async () => {
 
 const selectSubgoal = (subgoal) => {
     const events = goalsState.selected.events.filter(event => event.names.map(JSON.stringify).includes(JSON.stringify(subgoal.name)))
-    goalsState.selectedEvents = JSON.stringify(goalsState.selectedEvents) == JSON.stringify(events) ? [] : events;
+    if (JSON.stringify(goalsState.selectedEvents) != JSON.stringify(events)) {
+        goalsState.selectedEvents = events;
+        track('subgoal_selected', Array.isArray(subgoal.name) ? { subgoal: subgoal.name[0], subgoal_value: subgoal.name[1] } : { subgoal: subgoal.name });
+    } else {
+        goalsState.selectedEvents = [];
+        track('subgoal_deselected', Array.isArray(subgoal.name) ? { subgoal: subgoal.name[0], subgoal_value: subgoal.name[1] } : { subgoal: subgoal.name });
+    }
 }
 </script>
 
