@@ -74,7 +74,7 @@
     "signout": "Sign out",
     "timelineTab": "Timeline",
     "resultsTab": "Results",
-    "questionsTab": "Questions",
+    "questionsTab": "Goals",
     "yes": "Yes",
     "no": "No",
     "answer": "Answer",
@@ -91,5 +91,8 @@
     "and": "and",
     "second": "second",
     "seconds": "seconds"
+  },
+  "questions": {
+    "noResponse": "No goals have been set for this essay."
   }
 }
