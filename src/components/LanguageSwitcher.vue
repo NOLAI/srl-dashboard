@@ -1,11 +1,7 @@
 <template>
-    <select id="language-switcher" @change="switchLanguage">
-        <option
-            v-for="sLocale in supportedLocales"
-            :key="`locale-${sLocale}`"
-            :value="sLocale"
-            :selected="locale === sLocale"
-        >
+    <select class="border-b-2 border-solid border-black pb-1 mr-6 text-center" @change="switchLanguage">
+        <option v-for="sLocale in supportedLocales" :key="`locale-${sLocale}`" :value="sLocale"
+            :selected="locale === sLocale">
             {{ t(`locale.${sLocale}`) }}
         </option>
     </select>
@@ -28,7 +24,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

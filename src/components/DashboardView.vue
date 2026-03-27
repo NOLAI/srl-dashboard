@@ -1,10 +1,13 @@
 <template>
     <v-row>
-        <v-card flat color="transparent" min-width="100%">
+        <v-card flat>
             <EssaySelector />
             <v-tabs v-model="tab" @update:model-value="val => track('tab_changed', { tab: val })">
-                <v-tab value="timeline">
+                <v-tab value="timeline" class="mr-5 font-bold normal-case text-lg">
                     {{ $t("general.timelineTab") }}
+                </v-tab>
+                <v-tab value="questions" class="font-bold normal-case text-lg">
+                    {{ $t("general.questionsTab") }}
                 </v-tab>
             </v-tabs>
 
@@ -12,6 +15,9 @@
                 <v-window v-model="tab">
                     <v-window-item value="timeline">
                         <TimelineTab />
+                    </v-window-item>
+                    <v-window-item value="questions">
+                        <QuestionsTab />
                     </v-window-item>
                 </v-window>
             </v-card-text>
@@ -21,31 +27,10 @@
 
 <script setup>
 import TimelineTab from "./TimelineTab.vue";
+import QuestionsTab from "./QuestionsTab.vue";
 import EssaySelector from "./EssaySelector.vue";
 import { ref } from "vue";
 import { track } from "@/logic/tracking";
 
 const tab = ref("timeline");
 </script>
-
-<style scoped>
-.v-btn {
-    font-family: "Noto Sans";
-    font-weight: bold;
-    font-size: 16pt;
-    color: #2c3e50;
-    text-decoration: none;
-    margin-right: 20px;
-    padding-bottom: 2px;
-    text-transform: none;
-    letter-spacing: normal;
-}
-
-.tabLinks {
-    margin-bottom: 20px
-}
-
-#mainTabs {
-    width: 100%;
-}
-</style>

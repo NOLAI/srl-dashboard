@@ -54,7 +54,7 @@
     "main_point": "{name}"
   },
   "signin": {
-    "title": "Dashboard learning process",
+    "title": "Dashboard",
     "subsubtitle": "Homescreen & explanation",
     "subtitle": "Welcome to your personal dashboard!",
     "subtitleText1": "This dashboard provides insight into your learning process while writing the essay. To view your learning process, log in with your username.",
@@ -74,7 +74,7 @@
     "signout": "Sign out",
     "timelineTab": "Timeline",
     "resultsTab": "Results",
-    "questionsTab": "Questions",
+    "questionsTab": "Goals",
     "yes": "Yes",
     "no": "No",
     "answer": "Answer",
@@ -91,5 +91,8 @@
     "and": "and",
     "second": "second",
     "seconds": "seconds"
+  },
+  "questions": {
+    "noResponse": "No goals have been set for this essay."
   }
 }

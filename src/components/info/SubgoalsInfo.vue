@@ -1,9 +1,9 @@
 <template>
     <v-row class="explainer-heading">
-        <span>
+        <h2 class="text-lg font-bold">
             {{ t('goals.subgoals') }}
-        </span>
-        <v-divider />
+        </h2>
+        <hr class="border-t-2 mt-3 mb-4 w-full" />
         <ul v-if="!loading">
             <li class="mb-2" :key="subgoal.name" v-for="subgoal in goalsState.selected?.subgoals"
                 @click="selectSubgoal(subgoal)">
@@ -47,25 +47,3 @@ const selectSubgoal = (subgoal) => {
     }
 }
 </script>
-
-<style scoped>
-.explainer-heading>span {
-    font-weight: 600;
-    font-size: 13pt;
-    text-align: left;
-}
-
-.v-divider {
-    margin-top: 10px;
-    margin-bottom: 15px;
-    color: #000;
-    border-top-width: 2px;
-}
-
-.dot {
-    height: 2em;
-    width: 2em;
-    border-radius: 50%;
-    display: inline-block;
-}
-</style>

@@ -55,7 +55,7 @@
     "main_point": "{name}"
   },
   "signin": {
-    "title": "Dashboard leerproces",
+    "title": "Dashboard",
     "subsubtitle": "Startscherm & uitleg",
     "subtitle": "Welkom op jouw persoonlijke dashboard!",
     "subtitleText1": "Dit dashboard geeft inzicht in jouw leerproces tijdens het schrijven van het essay. Om jouw leerproces te bekijken, log in met jouw gebruikersnaam.",
@@ -75,7 +75,7 @@
     "signout": "Uitloggen",
     "timelineTab": "Tijdlijn",
     "resultsTab": "Resultaten",
-    "questionsTab": "Vragen",
+    "questionsTab": "Doelen",
     "yes": "Ja",
     "no": "Nee",
     "answer": "Antwoord",
@@ -92,5 +92,8 @@
     "and": "en",
     "second": "seconde",
     "seconds": "seconden"
+  },
+  "questions": {
+    "noResponse": "Er zijn geen doelen gesteld voor dit betoog."
   }
 }
