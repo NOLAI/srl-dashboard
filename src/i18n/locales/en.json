@@ -39,7 +39,9 @@
     "expanding": "Expanding"
   },
   "goals": {
-    "goals": "Product goals",
+    "process_goals": "Process goals",
+    "product_goals": "Product goals",
+    "no_response": "No goals have been set for this essay.",
     "subgoals": "Completed subgoals",
     "structure": "Structure",
     "relevance": "Relevance",
@@ -74,7 +76,7 @@
     "signout": "Sign out",
     "timelineTab": "Timeline",
     "resultsTab": "Results",
-    "questionsTab": "Goals",
+    "goalsTab": "Goals",
     "yes": "Yes",
     "no": "No",
     "answer": "Answer",
@@ -91,8 +93,5 @@
     "and": "and",
     "second": "second",
     "seconds": "seconds"
-  },
-  "questions": {
-    "noResponse": "No goals have been set for this essay."
   }
 }
