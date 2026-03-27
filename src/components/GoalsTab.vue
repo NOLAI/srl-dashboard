@@ -1,8 +1,9 @@
 <template>
     <v-container fluid>
-        <v-row v-if="!loading">
-            <div :key="essay.course_id" v-for="essay in essay_responses" class="w-full mb-8" ref="timelines">
-                <h1 class="text-xl font-bold">{{ $i18n.locale == 'nl' ? essay.name_nl : essay.name_en }}</h1>
+        <v-row v-if="!loading" class="w-full">
+            <div :key="essay.course_id" v-for="essay in essay_responses" class="w-full mb-16" ref="timelines">
+                <h1 class="text-xl font-bold mb-4">{{ $i18n.locale == 'nl' ? essay.name_nl : essay.name_en }}</h1>
+                <h2 class="text-lg font-bold">{{ t('goals.process_goals') }}</h2>
                 <div v-if="essay.response">
                     <div v-for="question in essay.response.questions" :key="question.id" class="mt-4">
                         <h2 class="text-md font-bold">{{ $i18n.locale == 'nl' ? question.content.nl :
@@ -36,8 +37,10 @@
                     </div>
                 </div>
                 <div v-else class="p-4 background-gray-100 rounded border-l-4 border-red-400">
-                    {{ t('questions.noResponse') }}
+                    {{ t('goals.no_response') }}
                 </div>
+                <h2 class="text-lg font-bold mt-8">{{ t('goals.product_goals') }}</h2>
+                <ProductGoals :course_id="essay.course_id" class="mt-4" />
             </div>
         </v-row>
         <v-progress-linear v-else indeterminate></v-progress-linear>
@@ -50,6 +53,7 @@ import { loadQuestions } from "@/logic/questions";
 import { essays } from "@/logic/essay";
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
+import ProductGoals from "@/components/ProductGoals.vue";
 
 const loading = ref(true);
 const responses = ref([]);

@@ -1,7 +1,7 @@
 <template>
-    <v-row class="explainer-heading">
+    <v-row>
         <h2 class="text-lg font-bold">
-            {{ props.title ?? t('goals.goals') }}
+            {{ props.title ?? t('goals.product_goals') }}
         </h2>
         <hr class="border-t-2 mt-3 mb-4 w-full" />
         <div v-if="!loading">

@@ -40,7 +40,9 @@
     "expanding": "Eigen informatie toevoegen"
   },
   "goals": {
-    "goals": "Productdoelen",
+    "process_goals": "Procesdoelen",
+    "no_response": "Er zijn geen doelen gesteld voor dit betoog.",
+    "product_goals": "Productdoelen",
     "subgoals": "Behaalde onderdelen",
     "structure": "Tekstopbouw",
     "relevance": "Relevantie",
@@ -75,7 +77,7 @@
     "signout": "Uitloggen",
     "timelineTab": "Tijdlijn",
     "resultsTab": "Resultaten",
-    "questionsTab": "Doelen",
+    "goalsTab": "Doelen",
     "yes": "Ja",
     "no": "Nee",
     "answer": "Antwoord",
@@ -92,8 +94,5 @@
     "and": "en",
     "second": "seconde",
     "seconds": "seconden"
-  },
-  "questions": {
-    "noResponse": "Er zijn geen doelen gesteld voor dit betoog."
   }
 }

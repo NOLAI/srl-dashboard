@@ -1,13 +1,13 @@
 <template>
     <v-row>
-        <v-card flat>
+        <v-card flat class="w-full">
             <EssaySelector />
             <v-tabs v-model="tab" @update:model-value="val => track('tab_changed', { tab: val })">
                 <v-tab value="timeline" class="mr-5 font-bold normal-case text-lg">
                     {{ $t("general.timelineTab") }}
                 </v-tab>
-                <v-tab value="questions" class="font-bold normal-case text-lg">
-                    {{ $t("general.questionsTab") }}
+                <v-tab value="goals" class="font-bold normal-case text-lg">
+                    {{ $t("general.goalsTab") }}
                 </v-tab>
             </v-tabs>
 
@@ -16,8 +16,8 @@
                     <v-window-item value="timeline">
                         <TimelineTab />
                     </v-window-item>
-                    <v-window-item value="questions">
-                        <QuestionsTab />
+                    <v-window-item value="goals">
+                        <GoalsTab />
                     </v-window-item>
                 </v-window>
             </v-card-text>
@@ -27,7 +27,7 @@
 
 <script setup>
 import TimelineTab from "./TimelineTab.vue";
-import QuestionsTab from "./QuestionsTab.vue";
+import GoalsTab from "./GoalsTab.vue";
 import EssaySelector from "./EssaySelector.vue";
 import { ref } from "vue";
 import { track } from "@/logic/tracking";
