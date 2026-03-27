@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        background_outer: '#EBEBEB',
         process: {
           disabled: '#EBEBEB',
           orientation: '#A6CEE3',

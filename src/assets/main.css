@@ -1,32 +1,36 @@
-@import 'base.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.v-tab__slider {
-  background: #2bbbde !important;
-  height: 4px !important;
-}
-.v-btn__content {
-  margin-bottom: 5px !important;
+body {
+  background-color: #ebebeb;
+  padding: 20px 50px 20px 50px;
+  font-family: 'Noto Sans', sans-serif;
 }
 
-.title {
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('fonts/Noto Sans/NotoSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('fonts/Noto Sans/NotoSans-Bold.ttf') format('truetype');
   font-weight: bold;
-  font-size: 20pt;
+  font-style: normal;
 }
 
-.subsubtitle {
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('fonts/Noto Sans/NotoSans-Italic.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
-  font-size: 14pt;
 }
 
-.subtitle {
-  font-size: 16pt;
-  font-weight: bold;
-}
-
-.error {
-  color: red;
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('fonts/Noto Sans/NotoSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
 }

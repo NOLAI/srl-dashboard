@@ -1,54 +1,45 @@
 <template>
-    <v-row class="signin-tab">
+    <v-row class="px-16">
         <v-col cols="1"></v-col>
         <v-col cols="4">
             <div>
-                <p class="title">
-                    {{ $t("signin.title") }}
-                </p>
-            </div>
-            <div>
-                <p class="subsubtitle">
-                    {{ $t("signin.subsubtitle") }}
-                </p>
-            </div>
-            <div class="signin-info-box">
-                <p class="subtitle">
+                <p class="mt-8">
                     {{ $t("signin.subtitle") }}
                 </p>
-                <p>
+                <p class="mt-4">
                     {{ $t("signin.subtitleText1") }}
                 </p>
-                <p>
+                <p class="mt-4">
                     {{ $t("signin.subtitleText2") }}
                 </p>
-                <p>
+                <p class="mt-4">
                     {{ $t("signin.subtitleText3") }}
                 </p>
-                <p>
+                <p class="mt-4">
                     {{ $t("signin.subtitleText4") }}
                 </p>
-                <p>
+                <p class="mt-4">
                     {{ $t("signin.subtitleText5") }}
                 </p>
             </div>
         </v-col>
-        <v-col class="signin-box" cols="4" offset="2">
-            <p class="subtitle">
+        <v-col class="bg-background_outer rounded-3xl p-16" cols="4" offset="2">
+            <h2 class="font-bold mb-4">
                 {{ $t("signin.signin") }}
-            </p>
+            </h2>
             <form name="signin-form">
-                <div class="mb-3 signin-input">
-                    <label for="username">{{ $t("signin.username") }} </label><br>
-                    <input type="text" id="username" class="w-100" v-model="username" />
+                <div class="mb-4 w-full">
+                    <label for="username" class="font-bold uppercase text-sm">{{ $t("signin.username") }} </label><br>
+                    <input type="text" id="username" class="w-full border-b-2 border-black border-solid"
+                        v-model="username" />
                 </div>
-                <p class="error" v-if="error">{{ $t(error) }}</p>
+                <p class="text-red-500" v-if="error">{{ $t(error) }}</p>
                 <div>
-                    <button class="btn btn-outline-dark" type="submit" v-on:click.prevent="signin()"
+                    <v-btn class="font-bold normal-case" type="submit" v-on:click.prevent="signin()"
                         :disabled="loading">
                         <v-progress-circular v-if="loading" indeterminate color="primary"></v-progress-circular>
                         <span v-else>{{ $t("signin.signinButton") }}</span>
-                    </button>
+                    </v-btn>
                 </div>
             </form>
         </v-col>
@@ -83,57 +74,3 @@ const signin = () => {
     });
 };
 </script>
-
-<style scoped>
-.greetings {
-    display: none !important;
-}
-
-#loading {
-    margin-top: -10px;
-    margin-bottom: -10px;
-}
-
-.signin-tab {
-    padding: 4em 0em;
-}
-
-.signin-info-box .subtitle {
-    margin-top: 2em;
-}
-
-.signin-info-box p:not(.subtitle) {
-    margin-top: 15px;
-}
-
-.signin-box {
-    background: #EBEBEB;
-    border-radius: 25px;
-    padding: 4em;
-}
-
-.signin-box label {
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 12px;
-}
-
-.signin-box input {
-    border-bottom: 2px solid #2c3e50;
-    margin-top: 10px;
-    width: 50%;
-}
-
-.signin-input {
-    margin-top: 20px;
-}
-
-.signin-box button {
-    color: white;
-    background-color: #2c3e50;
-    padding: 10px 40px;
-    border-radius: 25px;
-    margin-top: 30px;
-    width: 50%;
-}
-</style>

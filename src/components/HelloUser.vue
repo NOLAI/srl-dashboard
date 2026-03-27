@@ -1,21 +1,21 @@
 <template>
-    <v-row class="greetings" align="center">
-        <v-col v-if="auth.authenticated" id="top-text" cols="8">
-            <span class="title">
-                {{ $t("general.dashboardTitle", { user: auth.user.username }) }}
-            </span>
-            <br>
-            <span class="subsubtitle">
+    <v-row>
+        <v-col class="text-left" cols="8">
+            <h1 class="font-bold text-2xl">
+                {{ auth.authenticated ? $t("general.dashboardTitle", { user: auth.user.username }) : $t("signin.title")
+                }}
+            </h1>
+            <h2 class="text-lg italic">
                 {{ $t("general.dashboardSubtitle") }}
-            </span>
+            </h2>
         </v-col>
         <v-col v-if="auth.authenticated" cols="4" align="right">
             <LanguageSwitcher></LanguageSwitcher>
-            <v-btn id="signout-button" type="submit" v-on:click.prevent="signout()">
+            <v-btn class="font-bold normal-case" type="submit" v-on:click.prevent="signout()">
                 {{ $t("general.signout") }}
             </v-btn>
         </v-col>
-        <v-col v-else cols="12" align="right">
+        <v-col v-else cols="4" align="right">
             <LanguageSwitcher></LanguageSwitcher>
         </v-col>
     </v-row>
@@ -33,27 +33,3 @@ const signout = () => {
     router.push('/signin');
 }
 </script>
-
-<style scoped>
-#top-text {
-    height: 10vh;
-}
-
-#top-text {
-    text-align: left;
-}
-
-#signout-button {
-    text-transform: capitalize;
-    font-weight: 600;
-}
-
-#language-switcher {
-    border-bottom: 2px solid white;
-    padding-bottom: 5px;
-    font-weight: normal;
-    margin-right: 25px;
-    text-align: center;
-    background: transparent;
-}
-</style>

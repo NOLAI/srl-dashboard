@@ -1,37 +1,37 @@
 <template>
     <v-row>
-        <span class="explainer-heading">
+        <h2 class="text-lg font-bold">
             {{ props.type ? $t("process." + props.type) : props.title }}
-        </span>
-        <v-divider />
+        </h2>
+        <hr class="border-t-2 mt-3 mb-4 w-full" />
         <div v-if="!loading" class="flex flex-wrap">
             <strong v-if="!props.type" style="margin-bottom: 10px">{{ $t('process.metacognition') }}</strong>
             <template v-if="!props.type || props.type == 'metacognition'">
-                <p class="explainer-perc" @mouseover="hover(process)" @click="select(process)"
+                <div class="w-full mb-4" @mouseover="hover(process)" @click="select(process)"
                     v-for="(time, process) in percentages.metacognition" :key="process">
-                    <span class="dot"
+                    <span class="w-4 h-4 rounded-full inline-block mr-2 opacity-75"
                         :class="'bg-process-' + (processState.selected == null || processState.selected == process ? process : 'disabled')"></span>
-                    <span class="explainer-perc-number" v-if="props.show_percentage">
+                    <span class="inline-block w-8" v-if="props.show_percentage">
                         {{ Math.round(time / percentages.total * 100).toFixed(0) }}%
                     </span>
-                    <span class="explainer-perc-text">
+                    <span class="text-md italic">
                         {{ $t("process." + process) }}
                     </span>
-                </p>
+                </div>
             </template>
             <strong v-if="!props.type" style="margin-bottom: 10px">{{ $t('process.cognition') }}</strong>
             <template v-if="!props.type || props.type == 'cognition'">
-                <p class="explainer-perc" @mouseover="hover(process)" @click="select(process)"
+                <div class="w-full mb-4" @mouseover="hover(process)" @click="select(process)"
                     v-for="time, process in percentages.cognition" :key="process">
-                    <span class="dot"
+                    <span class="w-4 h-4 rounded-full inline-block mr-2 opacity-75"
                         :class="'bg-process-' + (processState.selected == null || processState.selected == process ? process : 'disabled')"></span>
-                    <span class="explainer-perc-number" v-if="props.show_percentage">
+                    <span class="inline-block w-8" v-if="props.show_percentage">
                         {{ Math.round(time / percentages.total * 100).toFixed(0) }}%
                     </span>
-                    <span class="explainer-perc-text">
+                    <span class="text-md italic">
                         {{ $t("process." + process) }}
                     </span>
-                </p>
+                </div>
             </template>
         </div>
         <v-progress-linear v-else indeterminate></v-progress-linear>
@@ -110,42 +110,3 @@ const select = (id) => {
     }
 };
 </script>
-
-<style scoped>
-.explainer-heading {
-    font-weight: 600;
-    font-size: 13pt;
-    text-align: left;
-}
-
-.v-divider {
-    margin-top: 10px;
-    margin-bottom: 15px;
-    color: #000;
-    border-top-width: 2px;
-}
-
-.explainer-perc {
-    display: inline;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.explainer-perc-number {
-    display: inline-block;
-    width: 40px;
-}
-
-.explainer-perc-text {
-    font-style: italic;
-}
-
-.dot {
-    height: .9em;
-    width: .9em;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 10px;
-    opacity: 0.75;
-}
-</style>

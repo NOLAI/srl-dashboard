@@ -1,6 +1,6 @@
 <template>
     <v-container fluid>
-        <v-row id="timelines" v-if="!loading">
+        <v-row v-if="!loading">
             <div :key="essay.course_id" v-for="essay in essay_responses" class="w-full mb-8" ref="timelines">
                 <h1 class="text-xl font-bold">{{ $i18n.locale == 'nl' ? essay.name_nl : essay.name_en }}</h1>
                 <div v-if="essay.response">
@@ -8,7 +8,7 @@
                         <h2 class="text-md font-bold">{{ $i18n.locale == 'nl' ? question.content.nl :
                             question.content.en
                             }}</h2>
-                        <div class="p-2 background-gray-100 rounded border-l-4 border-blue-400">
+                        <div class="p-2 rounded border-l-4 border-black">
                             <div v-if="question.answer_type == 'bool'">
                                 {{ question.answer_value ? t('general.yes') : t('general.no') }}
                             </div>
@@ -66,9 +66,3 @@ const essay_responses = computed(() => {
     });
 });
 </script>
-
-<style scoped>
-#timelines {
-    margin-bottom: 50px;
-}
-</style>

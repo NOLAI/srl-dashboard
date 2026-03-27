@@ -1,13 +1,14 @@
 <template>
     <v-container fluid>
-        <v-row id="tab-info">
-            <TabTopInfo :zoom="zoom" :zoomIn="() => { zoom += 25 }" :zoomOut="() => { zoom -= 25 }" />
+        <v-row>
+            <TimelineZoomControls :zoom="zoom" :zoomIn="() => { zoom += 25 }" :zoomOut="() => { zoom -= 25 }" />
         </v-row>
         <template v-if="essays.selected.length == 1">
-            <v-row id="timelines">
-                <div class="timeline-wrapper" ref="timelines">
-                    <h3>{{ $i18n.locale == 'nl' ? essays.selected[0].name_nl : essays.selected[0].name_en }}</h3>
-                    <div class="timeline-container">
+            <v-row id="timelines" class="mb-12">
+                <div class="w-full mb-4" ref="timelines">
+                    <h2 class="text-lg font-bold">{{ $i18n.locale == 'nl' ? essays.selected[0].name_nl :
+                        essays.selected[0].name_en }}</h2>
+                    <div class="timeline-container w-full overflow-x-auto overflow-y-hidden">
                         <TimelineChart :course_id="essays.selected[0].course_id" :combined="false" class="timeline"
                             :zoom="zoom" />
                     </div>
@@ -35,10 +36,11 @@
             </v-row>
         </template>
         <template v-else-if="essays.selected.length > 1">
-            <v-row id="timelines">
-                <div :key="essay.course_id" v-for="essay in essays.selected" class="timeline-wrapper" ref="timelines">
-                    <h3>{{ $i18n.locale == 'nl' ? essay.name_nl : essay.name_en }}</h3>
-                    <div class="timeline-container" @scroll="synchronizeScroll">
+            <v-row id="timelines" class="mb-12">
+                <div :key="essay.course_id" v-for="essay in essays.selected" class="w-full mb-4" ref="timelines">
+                    <h2 class="text-lg font-bold">{{ $i18n.locale == 'nl' ? essay.name_nl : essay.name_en }}</h2>
+                    <div class="timeline-container w-full overflow-x-auto overflow-y-hidden"
+                        @scroll="synchronizeScroll">
                         <TimelineChart :course_id="essay.course_id" :combined="true" class="timeline" :zoom="zoom" />
                     </div>
                 </div>
@@ -67,7 +69,7 @@
         <template v-else>
             <v-row id="timelines">
                 <div class="timeline-wrapper">
-                    <h1>Er zijn geen betogen geselecteerd.</h1>
+                    <h2 class="text-lg font-bold">Er zijn geen betogen geselecteerd.</h2>
                 </div>
             </v-row>
         </template>
@@ -76,7 +78,7 @@
 
 <script setup>
 import TimelineChart from "./TimelineChart.vue";
-import TabTopInfo from "./info/TabTopInfo.vue";
+import TimelineZoomControls from "./TimelineZoomControls.vue";
 import GoalsInfo from "./info/GoalsInfo.vue";
 import HoverInfo from "./info/HoverInfo.vue";
 import FractionInfo from "./info/FractionInfo.vue";
@@ -93,25 +95,3 @@ const synchronizeScroll = (event) => {
     }
 }
 </script>
-
-<style scoped>
-#tab-info {
-    margin-top: 5px;
-}
-
-#timelines {
-    margin-bottom: 50px;
-}
-
-.timeline-wrapper {
-    width: 100%;
-    margin-top: 20px;
-    margin-bottom: -20px;
-}
-
-.timeline-container {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-</style>

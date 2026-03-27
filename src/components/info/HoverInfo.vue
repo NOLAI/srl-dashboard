@@ -1,11 +1,11 @@
 <template>
     <v-row class="explainer-heading">
-        <span>
+        <h2 class="text-lg font-bold">
             {{ $t(processState.selected || processState.lastHover ? "process." + (processState.selected ??
                 processState.lastHover) :
                 'explanation.title') }}
-        </span>
-        <v-divider />
+        </h2>
+        <hr class="border-t-2 mt-3 mb-4 w-full" />
         <p>
             {{ $t(processState.selected || processState.lastHover ? "explanation." + (processState.selected ??
                 processState.lastHover) :
@@ -17,18 +17,3 @@
 <script setup>
 import { processState } from "@/logic/process";
 </script>
-
-<style scoped>
-.explainer-heading>span {
-    font-weight: 600;
-    font-size: 13pt;
-    text-align: left;
-}
-
-.v-divider {
-    margin-top: 10px;
-    margin-bottom: 15px;
-    color: #000;
-    border-top-width: 2px;
-}
-</style>
