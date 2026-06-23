@@ -25,7 +25,6 @@ const { t } = useI18n()
 
 const props = defineProps({
     course_id: Number,
-    title: String,
 });
 
 const loading = ref(true);
@@ -33,7 +32,6 @@ const goals = ref([]);
 
 onMounted(async () => {
     goals.value = await loadGoals(props.course_id);
-    console.log(goals.value);
     loading.value = false;
 });
 </script>

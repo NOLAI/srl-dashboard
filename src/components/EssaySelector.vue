@@ -15,7 +15,7 @@ let essays = ref([]);
 
 onMounted(async () => {
     essays.value = await loadEssays();
-    selectedEssays.selected = [essays.value[essays.value.length - 1]];
+    selectedEssays.selected = essays.value.length ? [essays.value[essays.value.length - 1]] : [];
     track('essays_selected', { essays: selectedEssays.selected });
     loading.value = false;
 });

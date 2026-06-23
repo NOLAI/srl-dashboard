@@ -6,7 +6,7 @@ const cache = {}
 
 export const loadGoals = async (courseId) => {
   goalsState.selected = null
-  goalsState.selectedSubgoals = []
+  goalsState.selectedEvents = []
   if (!cache[auth.user.id]) cache[auth.user.id] = {}
   if (cache[auth.user.id][courseId]) {
     return cache[auth.user.id][courseId]

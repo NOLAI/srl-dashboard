@@ -2,23 +2,19 @@ import { computed, reactive } from 'vue'
 import { fetch } from '@/logic/fetch'
 import tracking from '@/logic/tracking'
 
-export const signin = (username) => {
-  return new Promise((resolve, reject) => {
-    fetch(`/user/${username}`)
-      .then(async (user) => {
-        localStorage.setItem('user', JSON.stringify(user))
-        auth.user = user
-        tracking.start()
-        resolve(user)
-      })
-      .catch((response) => {
-        if (response.status === 404) {
-          reject('incorrectUsernameError')
-        } else {
-          reject('generalError')
-        }
-      })
-  })
+export const signin = async (username) => {
+  try {
+    const user = await fetch(`/user/${username}`)
+    localStorage.setItem('user', JSON.stringify(user))
+    auth.user = user
+    tracking.start(user)
+    return user
+  } catch (response) {
+    if (response?.status === 404) {
+      throw 'incorrectUsernameError'
+    }
+    throw 'generalError'
+  }
 }
 
 export const signout = async () => {

@@ -64,9 +64,9 @@ onMounted(async () => {
 });
 
 const essay_responses = computed(() => {
-    return essays.selected.map(e => {
-        e.response = responses.value.find(r => r.questionnaire_id == e.questionnaire_id);
-        return e;
-    });
+    return essays.selected.map(essay => ({
+        ...essay,
+        response: responses.value.find(response => response.questionnaire_id == essay.questionnaire_id),
+    }));
 });
 </script>

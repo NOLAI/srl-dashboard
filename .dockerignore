@@ -1,1 +1,29 @@
+# Dependencies and generated output
 node_modules/
+dist/
+coverage/
+*.log
+
+# Local environment files. Keep .env.production because Vite uses it during
+# the image build, and keep .env.example as documentation.
+.env
+.env.local
+.env.*.local
+
+# Version-control and repository metadata
+.git/
+.github/
+.gitignore
+.gitattributes
+
+# Local editor and operating-system files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Files not needed to build the production image
+README.md
+Dockerfile.dev
+docker-compose.dev.yml

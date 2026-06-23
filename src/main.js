@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import { auth } from '@/logic/auth'
 import tracking from '@/logic/tracking'
 
 // Vuetify
@@ -21,4 +22,4 @@ app.use(router)
 app.mount('#app')
 
 tracking.init()
-tracking.start()
+tracking.start(auth.user)
