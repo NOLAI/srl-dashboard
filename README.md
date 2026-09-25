@@ -84,3 +84,7 @@ The production build uses `.env.production` and expects the API to be available 
 | ------------------- | ----------------------------------------------------- |
 | `/dashboard/signin` | Username entry screen.                                |
 | `/dashboard/`       | Essay selector, process timeline and goals dashboard. |
+
+## Related publications
+
+[Bistolfi, I., de Mooij, S., Sparou, C., Molenaar, I., & van der Graaf, J. (2026, July). Co-designing a Dashboard Promoting SRL for Secondary Education. In International Conference on Human-Computer Interaction (pp. 37-58). Cham: Springer Nature Switzerland.](https://doi.org/10.1007/978-3-032-30781-1_3)
